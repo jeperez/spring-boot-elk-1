@@ -1,9 +1,10 @@
 # spring-boot-elk
 Spring Boot + ELK with custom fields sending to Logstash:
- * `serviceName`
- * `serviceVersion`
+ * `serviceName` - name of service
+ * `serviceVersion` - current version of service
+ * `X-Request-ID` -  Request ID from HTTP Header (if missing - generate random UUID)
 
-##How to run
+## How to run
 
 * Run ELK:
 ```
@@ -17,7 +18,8 @@ cd ..
 ./gradlew bootRun
 ```
 
-* Send request to endpoint:
+* Send requests to endpoint:
 ```
-curl localhost:8080/api/log
+curl http://localhost:8080/api/log
+curl -H 'X-Request-ID:helloWorld' http://localhost:8080/api/log
 ```
