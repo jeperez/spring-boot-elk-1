@@ -1,6 +1,7 @@
 package com.lomasz.springbootelk.config;
 
 import org.slf4j.MDC;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -11,6 +12,7 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.UUID;
 
+@Component
 public class RequestIdFilter extends OncePerRequestFilter {
 
     private static final String X_REQUEST_ID = "X-Request-ID";
@@ -20,6 +22,8 @@ public class RequestIdFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         String requestId = Optional.ofNullable(request.getHeader(X_REQUEST_ID)).orElse(UUID.randomUUID().toString());
         MDC.put(X_REQUEST_ID, requestId);
-        filterChain.doFilter(request,response);
+        filterChain.doFilter(request, response);
+
     }
+
 }
